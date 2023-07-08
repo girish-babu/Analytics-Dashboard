@@ -11,9 +11,13 @@
 	"license": "ISC",
 	"devDependencies": {
 		"parcel": "^2.9.3",
-		"process": "^0.11.10"
+		"process": "^0.11.10",
+		"tailwindcss": "^1.9.6"
 	},
 	"dependencies": {
+		"@headlessui/react": "^1.7.15",
+		"@heroicons/react": "^2.0.18",
+		"@tailwindcss/ui": "^0.7.2",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},

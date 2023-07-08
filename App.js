@@ -1,7 +1,6 @@
-import React from 'react';
+import React from "react";
+import Dashboard from "./src/components/dashboard/dashboard";
 
 export default App = () => {
-    return (
-        <div>In app file</div>
-    );
-}
+  return <Dashboard />;
+};
