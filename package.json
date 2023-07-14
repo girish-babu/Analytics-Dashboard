@@ -10,6 +10,7 @@
 	"author": "M Girish Babu",
 	"license": "ISC",
 	"devDependencies": {
+		"@parcel/transformer-sass": "^2.9.3",
 		"parcel": "^2.9.3",
 		"process": "^0.11.10",
 		"tailwindcss": "^1.9.6"
@@ -17,9 +18,17 @@
 	"dependencies": {
 		"@headlessui/react": "^1.7.15",
 		"@heroicons/react": "^2.0.18",
+		"@reduxjs/toolkit": "^1.9.5",
 		"@tailwindcss/ui": "^0.7.2",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"chart.js": "^4.3.0",
+		"chartjs-adapter-moment": "^1.0.1",
+		"react": "18.2.0",
+		"react-chartjs-2": "^5.2.0",
+		"react-dom": "^18.2.0",
+		"react-redux": "8.1.1",
+		"react-tailwindcss-datepicker": "^1.6.3",
+		"redux": "4.0.5",
+		"redux-saga": "0.14.3"
 	},
 	"browerslist": [
 		"last 2 versions"
