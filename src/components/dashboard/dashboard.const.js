@@ -24,6 +24,6 @@ export const classNames = (...classes) => {
 };
 
 export const defaultDateRange = {
-	startDate: "2023-06-01",
+	startDate: "2023-03-01",
 	endDate: "2023-06-30",
 };

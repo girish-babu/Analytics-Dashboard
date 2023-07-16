@@ -1,7 +1,4 @@
-import {
-	DATE_RANGE_UPDATED,
-	defaultDateRange,
-} from "../components/dashboard/dashboard.const";
+import { DATE_RANGE_UPDATED, defaultDateRange } from "./dashboard.const";
 
 const initialState = {
 	dateRange: defaultDateRange,

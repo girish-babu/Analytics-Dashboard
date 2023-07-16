@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { defaultDateRange } from "./dashboard.const";
 import WidgetDashboard from "../widgetdashboard/widgetdashboard";
 import DateRangePicker from "../daterangepicker/daterangepicker";
-import Navbar from "../navbar/navbar";
 
 import "./dashboard.css";
 
@@ -11,7 +10,6 @@ export default Dashboard = () => {
 
 	return (
 		<div className="min-h-full">
-			<Navbar />
 			<header className="bg-white shadow">
 				<div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 header">
 					<DateRangePicker

@@ -9,13 +9,15 @@ import {
 	TimeScale,
 } from "chart.js";
 import "chartjs-adapter-moment";
+import zoomPlugin from "chartjs-plugin-zoom";
 
 ChartJS.register(
 	LineElement,
 	TimeScale,
 	CategoryScale, // x axis
 	LinearScale,
-	PointElement
+	PointElement,
+	zoomPlugin
 );
 
 const TimeSeriesChart = ({ chartLabel, data, labels }) => {
@@ -35,21 +37,25 @@ const TimeSeriesChart = ({ chartLabel, data, labels }) => {
 	const options = {
 		scales: {
 			y: {
-				type: "time",
-				time: {
-					unit: "day", // Set the default unit to 'day' for hourly data
+				beginAtZero: true,
+			},
+		},
+		plugins: {
+			zoom: {
+				zoom: {
+					wheel: {
+						enabled: true,
+						speed: 0.01,
+					},
+					pinch: {
+						enabled: true,
+					},
 				},
 			},
 		},
 	};
 
-	return (
-		<Line
-			style={{ width: "45%", height: "45%" }}
-			data={timeSeriesData}
-			options={options}
-		/>
-	);
+	return <Line data={timeSeriesData} options={options} />;
 };
 
 export default TimeSeriesChart;

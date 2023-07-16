@@ -1,5 +1,8 @@
 import {
 	FETCH_ALL_DATA,
+	FETCH_ORDERS_BY_GRANULARITY,
+	FETCH_ORDERS_BY_GRANULARITY_ERROR,
+	FETCH_ORDERS_BY_GRANULARITY_SUCCESS,
 	FETCH_ORDERS_BY_ITEM,
 	FETCH_ORDERS_BY_ITEM_ERROR,
 	FETCH_ORDERS_BY_ITEM_SUCCESS,
@@ -12,9 +15,8 @@ import {
 	SET_LOADING_TRUE,
 } from "./widgetdashboard.const";
 
-export const fetchAllData = (payload) => ({
+export const fetchAllData = () => ({
 	type: FETCH_ALL_DATA,
-	payload,
 });
 
 export const setLoadingTrue = () => ({
@@ -61,4 +63,18 @@ export const fetchTopFiveBranchesSuccess = (payload) => ({
 
 export const fetchTopFiveBranchesError = () => ({
 	type: FETCH_TOP_5_BRANCHES_ERROR,
+});
+
+export const fetchOrdersByGranularity = (payload) => ({
+	type: FETCH_ORDERS_BY_GRANULARITY,
+	payload,
+});
+
+export const fetchOrdersByGranularitySuccess = (payload) => ({
+	type: FETCH_ORDERS_BY_GRANULARITY_SUCCESS,
+	payload,
+});
+
+export const fetchOrdersByGranularityError = () => ({
+	type: FETCH_ORDERS_BY_GRANULARITY_ERROR,
 });

@@ -19,11 +19,11 @@ const BarChart = ({ chartLabel, data, labels }) => {
 				label: chartLabel,
 				data: data,
 				backgroundColor: [
-					"rgba(255, 99, 132, 0.2)",
-					"rgba(255, 159, 64, 0.2)",
-					"rgba(255, 205, 86, 0.2)",
-					"rgba(75, 192, 192, 0.2)",
-					"rgba(54, 162, 235, 0.2)",
+					"rgba(255, 99, 132, 0.3)",
+					"rgba(255, 159, 64, 0.3)",
+					"rgba(255, 205, 86, 0.3)",
+					"rgba(75, 192, 192, 0.3)",
+					"rgba(54, 162, 235, 0.3)",
 				],
 				borderColor: [
 					"rgb(255, 99, 132)",
@@ -39,13 +39,7 @@ const BarChart = ({ chartLabel, data, labels }) => {
 
 	const options = {};
 
-	return (
-		<Bar
-			style={{ width: "45%", height: "45%" }}
-			data={barData}
-			options={options}
-		></Bar>
-	);
+	return <Bar data={barData} options={options}></Bar>;
 };
 
 export default BarChart;
