@@ -1,12 +1,37 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { defaultDateRange } from "./dashboard.const";
 import WidgetDashboard from "../widgetdashboard/widgetdashboard";
 import DateRangePicker from "../daterangepicker/daterangepicker";
 
 import "./dashboard.css";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { updateDashboard } from "../widgetdashboard/widgetdashboard.actions";
 
 export default Dashboard = () => {
 	const dashboardState = useSelector((state) => state.dashboard);
+	const widgetDashboardState = useSelector((state) => state.widgetDashboard);
+	const dispatch = useDispatch();
+
+	const onDragEnd = (result) => {
+		// TODO to reorder charts
+		console.log(result);
+		const { source, destination } = result;
+
+		if (!destination) {
+			return;
+		}
+
+		if (source.index === destination.index) {
+			return;
+		}
+
+		const newDashboardState = Array.from(widgetDashboardState);
+		const movedItem = newDashboardState[source.index];
+		newDashboardState.splice(source.index, 1);
+		newDashboardState.splice(destination.index, 0, movedItem);
+		dispatch(updateDashboard(newDashboardState));
+		console.log(newDashboardState);
+	};
 
 	return (
 		<div className="min-h-full">
@@ -23,7 +48,21 @@ export default Dashboard = () => {
 			</header>
 			<main>
 				<div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-					<WidgetDashboard dateRange={dashboardState.dateRange} />
+					<DragDropContext onDragEnd={onDragEnd}>
+						<Droppable droppableId="widget-dashboard-droppable">
+							{(provided) => (
+								<div
+									ref={provided.innerRef}
+									{...provided.droppableProps}
+								>
+									<WidgetDashboard
+										dateRange={dashboardState.dateRange}
+									/>
+									{provided.placeholder}
+								</div>
+							)}
+						</Droppable>
+					</DragDropContext>
 				</div>
 			</main>
 		</div>

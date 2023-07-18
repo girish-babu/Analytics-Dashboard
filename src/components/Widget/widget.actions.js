@@ -1,4 +1,5 @@
 import {
+	APPLY_FILTER_AND_FETCH,
 	FETCH_TIME_SERIES_DATA,
 	UPDATE_CHART_SELECTION,
 	UPDATE_SELECTED_GRANULARITY,
@@ -16,5 +17,10 @@ export const updateSelectedGranularity = (payload) => ({
 
 export const updateChartSelection = (payload) => ({
 	type: UPDATE_CHART_SELECTION,
+	payload,
+});
+
+export const applyFilterAndFetch = (payload) => ({
+	type: APPLY_FILTER_AND_FETCH,
 	payload,
 });

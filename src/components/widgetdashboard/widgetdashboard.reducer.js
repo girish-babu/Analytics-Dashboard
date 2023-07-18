@@ -8,6 +8,7 @@ import * as consts from "./widgetdashboard.const";
 
 const initialState = [
 	{
+		id: 1,
 		name: consts.TIME_SERIES_DATA,
 		labels: [],
 		data: [],
@@ -36,6 +37,7 @@ const initialState = [
 		chartSelected: consts.ORDERS_COUNT,
 	},
 	{
+		id: 2,
 		name: consts.ORDER_BY_ITEM,
 		labels: [],
 		data: [],
@@ -46,6 +48,7 @@ const initialState = [
 		selectedGranularity: "",
 	},
 	{
+		id: 3,
 		name: consts.ORDER_BY_STATUS,
 		labels: [],
 		data: [],
@@ -56,6 +59,7 @@ const initialState = [
 		selectedGranularity: "",
 	},
 	{
+		id: 4,
 		name: consts.TOP_5_BRANCHES,
 		labels: [],
 		data: [],
@@ -76,6 +80,18 @@ export default widgetDashboardReducer = (state = initialState, action) => {
 					loading: true,
 				};
 			});
+		case consts.SET_TIME_SERIES_LOADING_TRUE:
+			return state.map((chart) => {
+				if (chart.name === consts.TIME_SERIES_DATA) {
+					return {
+						...chart,
+						loading: true,
+					};
+				}
+				return chart;
+			});
+		case consts.UPDATE_DASHBOARD:
+			return action.payload;
 		case consts.FETCH_ORDERS_BY_ITEM_SUCCESS:
 			return state.map((item) => {
 				if (item.name === consts.ORDER_BY_ITEM) {

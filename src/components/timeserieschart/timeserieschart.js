@@ -51,6 +51,9 @@ const TimeSeriesChart = ({ chartLabel, data, labels }) => {
 						enabled: true,
 					},
 				},
+				pan: {
+					enabled: true,
+				},
 			},
 		},
 	};

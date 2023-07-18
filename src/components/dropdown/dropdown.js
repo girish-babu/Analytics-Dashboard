@@ -9,9 +9,9 @@ const Dropdown = (props) => {
 		setIsOpen(!isOpen);
 	};
 
-	const handleClick = (e) => {
+	const handleClick = (e, option) => {
 		toggleDropdown();
-		onChange(e.target.innerHTML);
+		onChange(option.value);
 	};
 
 	return (
@@ -26,7 +26,7 @@ const Dropdown = (props) => {
 							<li
 								key={i}
 								className="dropdown-item"
-								onClick={handleClick}
+								onClick={(e) => handleClick(e, option)}
 							>
 								{option.label}
 							</li>

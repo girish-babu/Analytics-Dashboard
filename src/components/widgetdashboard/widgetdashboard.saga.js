@@ -1,8 +1,6 @@
 import { put, select, takeLatest } from "redux-saga/effects";
 import {
-	DAY,
 	FETCH_ALL_DATA,
-	FETCH_ORDERS_BY_GRANULARITY,
 	FETCH_ORDERS_BY_GRANULARITY_QUERY,
 	FETCH_ORDERS_BY_ITEM,
 	FETCH_ORDERS_BY_STATUS,
@@ -10,15 +8,12 @@ import {
 	FETCH_ORDERS_GROUP_BY_ITEM_QUERY_URL,
 	FETCH_TOP_5_BRANCHES,
 	FETCH_TOP_5_BRANCHES_QUERY,
-	MONTH,
-	ORDERS_BY_MONTH,
 	ORDER_BY_ITEM,
 	ORDER_BY_STATUS,
 	TIME_SERIES_DATA,
 	TOP_5_BRANCHES,
 } from "./widgetdashboard.const";
 import {
-	fetchOrdersByGranularity,
 	fetchOrdersByGranularityError,
 	fetchOrdersByGranularitySuccess,
 	fetchOrdersByItem,
@@ -31,18 +26,20 @@ import {
 	fetchTopFiveBranchesError,
 	fetchTopFiveBranchesSuccess,
 	setLoadingTrue,
+	setTimeSeriesDataLoading,
 } from "./widgetdashboard.actions";
 import {
 	parsePayloadAndPrepare,
 	parseTimeseriesPayloadAndPrepare,
 } from "./widgetdashboard.helpers";
-import { FETCH_TIME_SERIES_DATA } from "../Widget/widget.const";
+import {
+	APPLY_FILTER_AND_FETCH,
+	FETCH_TIME_SERIES_DATA,
+	NONE,
+} from "../Widget/widget.const";
 import { fetchTimeSeriesData } from "../Widget/widget.actions";
-import { TIME } from "../../../../Backend/src/routes/routesconst";
 
 function* fetchOrdersByItemSaga() {
-	console.log("Inside fetchOrdersByItemSaga...");
-
 	try {
 		const { dateRange } = yield select((state) => state.dashboard);
 		const response = yield fetch(
@@ -56,13 +53,12 @@ function* fetchOrdersByItemSaga() {
 			)
 		);
 	} catch (error) {
+		console.log(error);
 		yield put(fetchOrdersByItemError());
 	}
 }
 
 function* fetchOrdersByStatusSaga() {
-	console.log("Inside fetchOrdersByBranchSaga...");
-
 	try {
 		const { dateRange } = yield select((state) => state.dashboard);
 		const response = yield fetch(
@@ -76,13 +72,12 @@ function* fetchOrdersByStatusSaga() {
 			)
 		);
 	} catch (error) {
+		console.log(error);
 		yield put(fetchOrdersByStatusError());
 	}
 }
 
 function* fetchTopFiveBranchesSaga() {
-	console.log("Inside fetchTopFiveBranchesSaga...");
-
 	try {
 		const { dateRange } = yield select((state) => state.dashboard);
 		const response = yield fetch(
@@ -96,13 +91,12 @@ function* fetchTopFiveBranchesSaga() {
 			)
 		);
 	} catch (error) {
+		console.log(error);
 		yield put(fetchTopFiveBranchesError());
 	}
 }
 
-function* fetchOrdersByGranularitySaga() {
-	console.log("Inside fetchOrdersByGranularitySaga...");
-
+function* fetchOrdersByGranularitySaga({ payload }) {
 	try {
 		const { dateRange } = yield select((state) => state.dashboard);
 		const [{ chartSelected, selectedGranularity }] = yield select((state) =>
@@ -110,18 +104,22 @@ function* fetchOrdersByGranularitySaga() {
 				(item) => item.name === TIME_SERIES_DATA
 			)
 		);
-		console.log(chartSelected, selectedGranularity);
-		const response = yield fetch(
-			`${FETCH_ORDERS_BY_GRANULARITY_QUERY}?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}&granularity=${selectedGranularity}`
-		);
+
+		let queryURL = `${FETCH_ORDERS_BY_GRANULARITY_QUERY}?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}&granularity=${selectedGranularity}`;
+
+		if (payload) {
+			const { order_status, item_type } = payload;
+			if (order_status != NONE) {
+				queryURL = `${queryURL}&order_status=${order_status}`;
+			}
+
+			if (item_type != NONE) {
+				queryURL = `${queryURL}&item_type=${item_type}`;
+			}
+		}
+
+		const response = yield fetch(queryURL);
 		const responseJson = yield response.json();
-		console.log(
-			parseTimeseriesPayloadAndPrepare(
-				responseJson,
-				chartSelected,
-				selectedGranularity
-			)
-		);
 		yield put(
 			fetchOrdersByGranularitySuccess(
 				parseTimeseriesPayloadAndPrepare(
@@ -132,6 +130,7 @@ function* fetchOrdersByGranularitySaga() {
 			)
 		);
 	} catch (error) {
+		console.log(error);
 		yield put(fetchOrdersByGranularityError());
 	}
 }
@@ -150,6 +149,7 @@ function* widgetDashboardSaga() {
 	yield takeLatest(FETCH_ORDERS_BY_STATUS, fetchOrdersByStatusSaga);
 	yield takeLatest(FETCH_TOP_5_BRANCHES, fetchTopFiveBranchesSaga);
 	yield takeLatest(FETCH_TIME_SERIES_DATA, fetchOrdersByGranularitySaga);
+	yield takeLatest(APPLY_FILTER_AND_FETCH, fetchOrdersByGranularitySaga);
 }
 
 export default widgetDashboardSaga;

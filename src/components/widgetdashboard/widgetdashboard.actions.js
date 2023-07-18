@@ -13,6 +13,7 @@ import {
 	FETCH_TOP_5_BRANCHES_ERROR,
 	FETCH_TOP_5_BRANCHES_SUCCESS,
 	SET_LOADING_TRUE,
+	UPDATE_DASHBOARD,
 } from "./widgetdashboard.const";
 
 export const fetchAllData = () => ({
@@ -21,6 +22,10 @@ export const fetchAllData = () => ({
 
 export const setLoadingTrue = () => ({
 	type: SET_LOADING_TRUE,
+});
+
+export const setTimeSeriesDataLoading = () => ({
+	type: SET_TIME_SERIES_LOADING_TRUE,
 });
 
 export const fetchOrdersByItem = (payload) => ({
@@ -77,4 +82,9 @@ export const fetchOrdersByGranularitySuccess = (payload) => ({
 
 export const fetchOrdersByGranularityError = () => ({
 	type: FETCH_ORDERS_BY_GRANULARITY_ERROR,
+});
+
+export const updateDashboard = (payload) => ({
+	type: UPDATE_DASHBOARD,
+	payload,
 });
