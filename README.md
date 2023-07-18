@@ -17,10 +17,11 @@ Note:
 
 Scope for improvement:
 
-1. In homepage show a list of available dashboard.
+1. In homepage, show a list of available dashboards.
 2. Selecting a dashboard should show its configured chart data.
 3. Ability to create a new dashboard.
 4. Ability to create widgets using a button.
+5. Has good scope of improvement in UX and usability.
 
 
    
