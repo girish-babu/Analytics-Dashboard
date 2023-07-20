@@ -6,72 +6,9 @@ import {
 } from "../Widget/widget.const";
 import * as consts from "./widgetdashboard.const";
 
-const initialState = [
-	{
-		id: 1,
-		name: consts.TIME_SERIES_DATA,
-		labels: [],
-		data: [],
-		type: TIME_SERIES,
-		loading: false,
-		supportsGranularity: true,
-		granularityOptions: [
-			{
-				label: consts.HOUR,
-				value: consts.HOUR,
-			},
-			{
-				label: consts.DAY,
-				value: consts.DAY,
-			},
-			{
-				label: consts.WEEK,
-				value: consts.WEEK,
-			},
-			{
-				label: consts.MONTH,
-				value: consts.MONTH,
-			},
-		],
-		selectedGranularity: consts.MONTH,
-		chartSelected: consts.ORDERS_COUNT,
-	},
-	{
-		id: 2,
-		name: consts.ORDER_BY_ITEM,
-		labels: [],
-		data: [],
-		type: BAR_CHART,
-		loading: true,
-		supportsGranularity: false,
-		granularityOptions: [],
-		selectedGranularity: "",
-	},
-	{
-		id: 3,
-		name: consts.ORDER_BY_STATUS,
-		labels: [],
-		data: [],
-		type: BAR_CHART,
-		loading: true,
-		supportsGranularity: false,
-		granularityOptions: [],
-		selectedGranularity: "",
-	},
-	{
-		id: 4,
-		name: consts.TOP_5_BRANCHES,
-		labels: [],
-		data: [],
-		type: BAR_CHART,
-		loading: true,
-		supportsGranularity: false,
-		granularityOptions: [],
-		selectedGranularity: "",
-	},
-];
+const initialState = consts.WIDGET_DASHBOARD_INITIAL_STATE;
 
-export default widgetDashboardReducer = (state = initialState, action) => {
+const widgetDashboardReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case consts.SET_LOADING_TRUE:
 			return state.map((chart) => {
@@ -164,3 +101,5 @@ export default widgetDashboardReducer = (state = initialState, action) => {
 			return state;
 	}
 };
+
+export default widgetDashboardReducer;

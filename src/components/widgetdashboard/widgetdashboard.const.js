@@ -1,3 +1,5 @@
+import { BAR_CHART, TIME_SERIES } from "../Widget/widget.const";
+
 export const HOUR = "HOUR";
 export const DAY = "DAY";
 export const WEEK = "WEEK";
@@ -45,3 +47,68 @@ export const FETCH_TOP_5_BRANCHES_QUERY =
 
 export const FETCH_ORDERS_BY_GRANULARITY_QUERY =
 	"http://localhost:3010/orders/group-by/time";
+
+export const WIDGET_DASHBOARD_INITIAL_STATE = [
+	{
+		id: 1,
+		name: TIME_SERIES_DATA,
+		labels: [],
+		data: [],
+		type: TIME_SERIES,
+		loading: false,
+		supportsGranularity: true,
+		granularityOptions: [
+			{
+				label: HOUR,
+				value: HOUR,
+			},
+			{
+				label: DAY,
+				value: DAY,
+			},
+			{
+				label: WEEK,
+				value: WEEK,
+			},
+			{
+				label: MONTH,
+				value: MONTH,
+			},
+		],
+		selectedGranularity: MONTH,
+		chartSelected: ORDERS_COUNT,
+	},
+	{
+		id: 2,
+		name: ORDER_BY_ITEM,
+		labels: [],
+		data: [],
+		type: BAR_CHART,
+		loading: true,
+		supportsGranularity: false,
+		granularityOptions: [],
+		selectedGranularity: "",
+	},
+	{
+		id: 3,
+		name: ORDER_BY_STATUS,
+		labels: [],
+		data: [],
+		type: BAR_CHART,
+		loading: true,
+		supportsGranularity: false,
+		granularityOptions: [],
+		selectedGranularity: "",
+	},
+	{
+		id: 4,
+		name: TOP_5_BRANCHES,
+		labels: [],
+		data: [],
+		type: BAR_CHART,
+		loading: true,
+		supportsGranularity: false,
+		granularityOptions: [],
+		selectedGranularity: "",
+	},
+];

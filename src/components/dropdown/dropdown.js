@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import "./dropdown.scss"; // Import the CSS file for styling
+import React, { useState } from "react";
+import "./dropdown.scss";
 
 const Dropdown = (props) => {
 	const { options, onChange, value } = props;

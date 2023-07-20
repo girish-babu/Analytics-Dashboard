@@ -1,7 +1,7 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-export default Modal = (props) => {
+const Modal = (props) => {
 	const { component, open, onClose, applyFilter } = props;
 
 	const cancelButtonRef = useRef(null);
@@ -78,3 +78,5 @@ export default Modal = (props) => {
 		</Transition.Root>
 	);
 };
+
+export default Modal;

@@ -1,30 +1,29 @@
+import React from "react";
 import BarChart from "../barchart/barchart";
 import TimeSeriesChart from "../timeserieschart/timeserieschart";
+import Dropdown from "../dropdown/dropdown";
+import Modal from "../modal/modal";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
 	BAR_CHART,
 	TIME_SERIES,
 	TIME_SERIES_OPTIONS,
-	FILTER_TYPE_OPTIONS,
 	NONE,
 	MODAL_FILTER_OPTIONS,
 	ITEM_TYPE_OPTIONS,
 } from "./widget.const";
-import Dropdown from "../dropdown/dropdown";
-import { useDispatch } from "react-redux";
 import {
 	applyFilterAndFetch,
 	fetchTimeSeriesData,
 	updateChartSelection,
 	updateSelectedGranularity,
 } from "./widget.actions";
-import Modal from "../modal/modal";
-import { useState } from "react";
-import "./widget.scss";
 import { TIME_SERIES_DATA } from "../widgetdashboard/widgetdashboard.const";
+import "./widget.scss";
 
-export default Widget = (props) => {
+const Widget = (props) => {
 	const {
-		id,
 		type,
 		name,
 		data,
@@ -34,15 +33,14 @@ export default Widget = (props) => {
 		granularityOptions,
 		selectedGranularity,
 		chartSelected,
-		index,
 	} = props;
-	const [modalOpen, setOpen] = useState(false);
+	const [modalOpen, setModalOpen] = useState(false);
 	const [filterOrderStatus, setOrderStatus] = useState(NONE);
 	const [filterItemType, setItemType] = useState(NONE);
 	const dispatch = useDispatch();
 
 	const applyFilterAndFetchData = () => {
-		setOpen(false);
+		setModalOpen(false);
 		dispatch(
 			applyFilterAndFetch({
 				order_status: filterOrderStatus,
@@ -52,11 +50,18 @@ export default Widget = (props) => {
 	};
 
 	const renderBarChart = (widgetLabel, data, labels) => (
-		<BarChart chartLabel={widgetLabel} data={data} labels={labels} />
+		<BarChart
+			className={"chart"}
+			id={"bar-chart"}
+			chartLabel={widgetLabel}
+			data={data}
+			labels={labels}
+		/>
 	);
 
 	const renderTimeSeriesChart = (widgetLabel, data, labels) => (
 		<TimeSeriesChart
+			className={"chart"}
 			style={{ width: "100%", height: "100%" }}
 			chartLabel={widgetLabel}
 			data={data}
@@ -161,11 +166,12 @@ export default Widget = (props) => {
 					<div className="buttons">
 						<button
 							className="apply-filter text-md bg-gray-300 hover:bg-gray-500 text-white"
-							onClick={() => setOpen(true)}
+							onClick={() => setModalOpen(true)}
 						>
 							Apply Filter
 						</button>
 						<button
+							data-testid={"fetch-data"}
 							className="fetch-data text-md text-gray-900 bg-blue-200 hover:bg-blue-400"
 							onClick={() =>
 								dispatch(
@@ -182,7 +188,7 @@ export default Widget = (props) => {
 					{modalOpen && (
 						<Modal
 							open={modalOpen}
-							onClose={setOpen}
+							onClose={setModalOpen}
 							component={renderFilterComponent}
 							applyFilter={applyFilterAndFetchData}
 						/>
@@ -192,3 +198,5 @@ export default Widget = (props) => {
 		</div>
 	);
 };
+
+export default Widget;

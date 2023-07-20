@@ -1,20 +1,19 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { defaultDateRange } from "./dashboard.const";
 import WidgetDashboard from "../widgetdashboard/widgetdashboard";
 import DateRangePicker from "../daterangepicker/daterangepicker";
-
-import "./dashboard.css";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { updateDashboard } from "../widgetdashboard/widgetdashboard.actions";
 
-export default Dashboard = () => {
+import "./dashboard.css";
+
+const Dashboard = () => {
 	const dashboardState = useSelector((state) => state.dashboard);
 	const widgetDashboardState = useSelector((state) => state.widgetDashboard);
 	const dispatch = useDispatch();
 
 	const onDragEnd = (result) => {
-		// TODO to reorder charts
-		console.log(result);
 		const { source, destination } = result;
 
 		if (!destination) {
@@ -30,7 +29,6 @@ export default Dashboard = () => {
 		newDashboardState.splice(source.index, 1);
 		newDashboardState.splice(destination.index, 0, movedItem);
 		dispatch(updateDashboard(newDashboardState));
-		console.log(newDashboardState);
 	};
 
 	return (
@@ -68,3 +66,5 @@ export default Dashboard = () => {
 		</div>
 	);
 };
+
+export default Dashboard;

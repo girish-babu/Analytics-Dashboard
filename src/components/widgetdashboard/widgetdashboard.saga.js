@@ -98,6 +98,7 @@ function* fetchTopFiveBranchesSaga() {
 
 function* fetchOrdersByGranularitySaga({ payload }) {
 	try {
+		yield put(setTimeSeriesDataLoading());
 		const { dateRange } = yield select((state) => state.dashboard);
 		const [{ chartSelected, selectedGranularity }] = yield select((state) =>
 			state.widgetDashboard.filter(

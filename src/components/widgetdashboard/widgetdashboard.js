@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import Widget from "../Widget/widget";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllData } from "./widgetdashboard.actions";
 import { Draggable } from "react-beautiful-dnd";
 import "./widgetdashboard.scss";
 
-export default WidgetDashboard = ({ dateRange }) => {
+const WidgetDashboard = ({ dateRange }) => {
 	const widgetsData = useSelector((state) => state.widgetDashboard);
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -13,7 +13,7 @@ export default WidgetDashboard = ({ dateRange }) => {
 	}, [dateRange]);
 
 	return (
-		<div className="widget-dashboard">
+		<div data-testid="widget-dashboard" className="widget-dashboard">
 			{widgetsData.map((widget, i) => (
 				<Draggable key={widget.id} draggableId={widget.name} index={i}>
 					{(provided) => (
@@ -35,3 +35,5 @@ export default WidgetDashboard = ({ dateRange }) => {
 		</div>
 	);
 };
+
+export default WidgetDashboard;
